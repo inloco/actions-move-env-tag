@@ -1,0 +1,17 @@
+name: Move Environment Tag
+description: Move Environment Git Tag to a Git Reference
+inputs:
+  env-tag:
+    description: Environment Tag Name, e.g. env-integration, env-production, or env-staging
+    required: true
+  git-ref:
+    description: Git Reference, e.g. master, v1.2.3, or b538471
+    required: true
+runs:
+  using: composite
+  steps:
+    - if: ${{ !contains('env-integration,env-production,env-staging', inputs.env-tag) }}
+      run: echo "Environment tag values are restricted to [env-integration env-production env-staging]" && exit 1
+      shell: bash
+    - run: make -Bf ${{ github.action_path }}/Makefile ENV_TAG="${{ inputs.env-tag }}" GIT_REF="${{ inputs.git-ref }}" move-git-tag
+      shell: bash
