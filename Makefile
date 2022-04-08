@@ -8,3 +8,8 @@ update-git-tag:
 	git tag -fam "" "$(TAG)"
 	git push --force --set-upstream "$$(git remote show)" "$(TAG)"
 .PHONY: update-git-tag
+
+print:
+	echo "$(REF)"
+	echo "---"
+	echo "$(TAG)"

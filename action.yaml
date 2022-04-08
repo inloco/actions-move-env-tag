@@ -10,8 +10,5 @@ inputs:
 runs:
   using: composite
   steps:
-    - if: ${{ !contains('env-production,env-staging,env-integration', 'SomeString') }}
-      run: echo "Environment tag values are restricted to [env-production env-staging env-integration]" && exit 1
-      shell: bash
-    - run: make -Bf ${{ github.action_path }}/Makefile TAG="${{ github.event.inputs.tag }}" REF="${{ github.event.inputs.ref }}" update-git-tag
+    - run: make -Bf ${{ github.action_path }}/Makefile TAG="${{ github.event.inputs.tag }}" REF="${{ github.event.inputs.ref }}" print
       shell: bash
